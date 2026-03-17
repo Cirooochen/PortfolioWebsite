@@ -1,3 +1,6 @@
+# Playwright MCP screenshots
+.playwright-mcp/
+
 # Logs
 logs
 *.log
