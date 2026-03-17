@@ -1,5 +1,64 @@
 # Changelog
 
+## 2026-03-18 — Session 3: Font Swap, OpenAI Integration, GitHub + Vercel Setup
+
+### Changes
+
+#### Font — Inter → Google Sans
+- Swapped Google Fonts import in `index.html` from Inter to Google Sans (full weight + italic range)
+- Updated `--font-sans` token in `globals.css` to `'Google Sans'`
+
+#### API — Claude → OpenAI
+- Rewrote `api/chat.ts` to call OpenAI `gpt-4o-mini` instead of Claude
+- Updated auth header to `Authorization: Bearer` (OpenAI format)
+- System prompt injected as first message in array (OpenAI chat format)
+- Response parsing updated: `data.choices[0].message.content`
+- Env var renamed: `CLAUDE_API_KEY` → `OPENAI_API_KEY`
+- Updated `.env.example` to reflect new variable name
+
+#### GitHub — Repo Created & Pushed
+- Initialized git repo, made initial commit
+- Created public GitHub repo: `Cirooochen/PortfolioWebsite` via `gh` CLI
+- Added `.playwright-mcp/` to `.gitignore`, removed screenshots from tracking
+- Installed and authenticated `gh` CLI
+
+### Modified Files
+
+| File | Change |
+| --- | --- |
+| `index.html` | Google Sans font import |
+| `src/styles/globals.css` | `--font-sans` updated to Google Sans |
+| `api/chat.ts` | Switched from Claude API to OpenAI API |
+| `.env.example` | Renamed `CLAUDE_API_KEY` → `OPENAI_API_KEY` |
+| `.gitignore` | Added `.playwright-mcp/` exclusion |
+
+### What's NOT Done (carried over)
+
+#### Must-do before launch
+
+- [x] ~~Connect Claude API~~ → Switched to OpenAI, API key added to `.env.local`
+- [ ] **Deploy to Vercel** — Vercel account auth issue (403), retry tomorrow
+- [ ] **Real project content** — Replace placeholder projects in `src/data/projects.ts`
+- [ ] **Real showcase content** — Replace placeholder items in `src/data/showcase.ts`
+- [ ] **Project thumbnails** — Add real images
+- [ ] **Social links** — Update footer links to real profiles
+- [ ] **Favicon** — Replace default Vite favicon
+- [ ] **Meta tags** — Open Graph / Twitter Card for social sharing
+
+#### Nice-to-have / Polish
+
+- [ ] GSAP scroll-triggered animations
+- [ ] Page transition animations
+- [ ] Mobile hamburger menu
+- [ ] Focus trapping in modals (accessibility)
+- [ ] Dark mode toggle
+- [ ] Analytics (Vercel Analytics or Plausible)
+- [ ] Chat message persistence (localStorage)
+- [ ] Rate limiting on chat API endpoint
+- [ ] Image optimization (WebP/AVIF)
+
+---
+
 ## 2026-03-17 — Session 2: Homepage Sections, Chat UX, Motion Setup
 
 ### Changes
@@ -34,7 +93,7 @@
 ### New Files
 
 | File | Purpose |
-|---|---|
+| --- | --- |
 | `src/components/cards/BentoGrid.tsx` | Bento grid layout for UI work showcase |
 | `src/components/layout/Footer.tsx` | Site footer with clock, links, social, copyright |
 | `src/components/ui/ClockUI.tsx` | Analog clock with timezone selector |
@@ -45,7 +104,7 @@
 ### Modified Files
 
 | File | Change |
-|---|---|
+| --- | --- |
 | `src/components/chat/ChatModal.tsx` | Centered modal, close-only via X button |
 | `src/pages/HomePage.tsx` | Added Bento Grid, Contact, and Footer sections |
 | `src/types/index.ts` | Added `ShowcaseItem` interface |
@@ -77,7 +136,7 @@
 #### Components (19 total)
 
 | Component | Path | Notes |
-|---|---|---|
+| --- | --- | --- |
 | `Container` | `components/layout/` | Max-width + centering wrapper |
 | `Section` | `components/layout/` | Consistent vertical padding |
 | `PageLayout` | `components/layout/` | NavBar + main content wrapper |
