@@ -41,7 +41,7 @@ function AnalogClock({ date }: { date: Date }) {
         x1="26" y1="26"
         x2={26 + 19 * Math.sin((secDeg * Math.PI) / 180)}
         y2={26 - 19 * Math.cos((secDeg * Math.PI) / 180)}
-        stroke="#c0392b" strokeWidth="1" strokeLinecap="round"
+        stroke="var(--color-text-tertiary)" strokeWidth="1" strokeLinecap="round"
       />
       <circle cx="26" cy="26" r="1.5" fill="var(--color-text-primary)" />
     </svg>

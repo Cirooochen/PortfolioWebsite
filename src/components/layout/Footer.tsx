@@ -11,7 +11,7 @@ export function Footer({ onNavigate }: FooterProps) {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-border-primary bg-bg-secondary py-12">
+    <footer className="border-t border-border-primary bg-bg-primary/45 py-12 backdrop-blur-md">
       <Container>
         <div className="grid gap-10 md:grid-cols-4">
           {/* Clock */}

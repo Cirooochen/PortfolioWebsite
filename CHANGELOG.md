@@ -1,5 +1,62 @@
 # Changelog
 
+## 2026-10-16 — Session 4: Water Hero, Intro, Case Studies, Drink Contact
+
+### Changes
+
+#### Hero — Real-time WebGL water
+- New full-screen water surface (raw WebGL2, no new dependencies): ripple simulation in half-float ping-pong textures, "Ciro Chen" refracting under the surface
+- Light follows the cursor, pointer movement leaves a faint trail, clicks drop micro ripples, occasional ambient drops
+- Scroll fills the water: hero pins until the waterline reaches 50% of the viewport, then scrolls away as the name sinks out of view
+- Work note ("Currently working at SIV.AG…") surfaces on the filled water
+- Hero copy: "Based in Berlin" tag with a spinning outline globe, "Senior Product Designer", single "Talk to my AI" link button
+- Fallbacks: static name when WebGL2 is unavailable; no ambient motion with `prefers-reduced-motion`
+
+#### NavBar
+- Transparent over the hero, showing "Currently: developing an app"; switches to 45% white + blur with the "Ciro Chen" logo once the hero's bottom reaches 7% of the viewport
+- Nav links are text-only: 2px underline for the current page, bold on hover (no layout shift)
+
+#### New sections
+- **Introduction** — two columns: About (dominant) + Design philosophy (AI-assisted design); "surfacing" text that rises out of a blur on scroll, wave underline on key phrases
+- **Selected Work** — three case study cards in three sizes (feature / standard / compact) with glass tags, greyscale-to-colour hover, cursor-following light; placeholder projects with Unsplash images
+- **Get in Touch** — "What's your favourite drink?": four options; picking one swaps in a drink-specific reply, icon, and email link that opens Gmail compose
+- Contact + footer sit on a second water surface (call-back to the hero); footer is frosted glass
+
+#### Design system
+- Monochrome palette; `--color-focus` token (currently `#171717`)
+- Buttons: transparent at rest, frosted glass on hover; new `link` variant
+- Shared glass styles (`ui/glass.ts`), `Tag` glass/live variants, `Eyebrow` label, `GlobeIcon`
+- Frosted floating chat button
+
+### New Files
+
+| File | Purpose |
+| --- | --- |
+| `src/components/water/waterSurface.ts` | WebGL2 water engine |
+| `src/components/water/WaterPool.tsx` | Plain water background for any section |
+| `src/hooks/useWaterSurface.ts` | Mounts the engine + shared pointer interactions |
+| `src/components/hero/WaterHero.tsx` | Hero section |
+| `src/hooks/useHeroPassed.ts` | NavBar state from hero position |
+| `src/components/text/SurfacingText.tsx` | Scroll-scrubbed word reveal |
+| `src/components/cards/CaseStudyCard.tsx` | Case study card |
+| `src/components/contact/DrinkContact.tsx` | Drink-picker contact |
+| `src/components/icons/GlobeIcon.tsx` | Animated globe icon |
+| `src/components/typography/Eyebrow.tsx` | Section label |
+| `src/components/ui/glass.ts` | Shared glass styles |
+| `src/data/about.ts`, `caseStudies.ts`, `contact.ts` | Section content |
+
+### Notes
+
+- `npm install` needs `--legacy-peer-deps`: `@tailwindcss/vite` 4.2.1 doesn't list Vite 8 as a supported peer yet
+
+### What's NOT Done
+
+- [ ] **About placeholders** — replace `[hometown]` and `[current city]` in `src/data/about.ts`
+- [ ] **Real case studies** — replace placeholder projects in `src/data/caseStudies.ts`; cards currently link to the Projects page
+- [ ] Everything still open from Session 3 below (Vercel deploy, real content, social links, favicon, meta tags)
+
+---
+
 ## 2026-03-18 — Session 3: Font Swap, OpenAI Integration, GitHub + Vercel Setup
 
 ### Changes
@@ -47,7 +104,7 @@
 
 #### Nice-to-have / Polish
 
-- [ ] GSAP scroll-triggered animations
+- [x] ~~GSAP scroll-triggered animations~~ → intro text reveal (Session 4)
 - [ ] Page transition animations
 - [ ] Mobile hamburger menu
 - [ ] Focus trapping in modals (accessibility)
@@ -196,7 +253,7 @@
 
 #### Nice-to-have / Polish
 
-- [ ] GSAP scroll-triggered animations (libraries installed, not yet wired to components)
+- [x] ~~GSAP scroll-triggered animations~~ → intro text reveal (Session 4) (libraries installed, not yet wired to components)
 - [ ] Page transition animations between Home and Projects
 - [ ] Mobile hamburger menu
 - [ ] Focus trapping in modals (accessibility)

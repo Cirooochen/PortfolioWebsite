@@ -4,10 +4,24 @@ import { Divider } from '../components/layout/Divider'
 import { Footer } from '../components/layout/Footer'
 import { Heading } from '../components/typography/Heading'
 import { Text } from '../components/typography/Text'
-import { Button } from '../components/ui/Button'
+import { Eyebrow } from '../components/typography/Eyebrow'
+import { SurfacingText } from '../components/text/SurfacingText'
 import { BentoGrid } from '../components/cards/BentoGrid'
+import { CaseStudyCard } from '../components/cards/CaseStudyCard'
+import { DrinkContact } from '../components/contact/DrinkContact'
+import { WaterHero } from '../components/hero/WaterHero'
+import { WaterPool } from '../components/water/WaterPool'
 import { showcaseItems } from '../data/showcase'
-import type { Page } from '../types'
+import { caseStudies } from '../data/caseStudies'
+import { introSegments, philosophyLead, philosophySegments } from '../data/about'
+import type { CaseStudyEmphasis, Page } from '../types'
+
+// Grid placement per card emphasis: a full-width feature, then a staggered pair
+const caseStudySpans: Record<CaseStudyEmphasis, string> = {
+  feature: 'md:col-span-12',
+  standard: 'md:col-span-7',
+  compact: 'md:col-span-5 md:mt-24',
+}
 
 interface HomePageProps {
   onOpenChat: () => void
@@ -18,27 +32,53 @@ export function HomePage({ onOpenChat, onNavigate }: HomePageProps) {
   return (
     <>
       {/* Hero */}
-      <Section className="flex min-h-[calc(100vh-4rem)] items-center">
+      <WaterHero onOpenChat={onOpenChat} />
+
+      {/* Introduction */}
+      <Section className="md:py-32">
         <Container>
-          <div className="max-w-2xl">
-            <Text size="lg" muted className="mb-4">
-              Hi, I'm Ciro
-            </Text>
-            <Heading level={1} className="mb-6">
-              Product Designer crafting thoughtful digital experiences
-            </Heading>
-            <Text size="lg" muted className="mb-10 max-w-xl">
-              I design systems, tools, and interfaces that respect users' time and cognitive load.
-              Currently focused on design systems, AI products, and making complex things feel simple.
-            </Text>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" onClick={onOpenChat}>
-                Talk to my AI
-              </Button>
-              <Button size="lg" variant="secondary" onClick={() => onNavigate('projects')}>
-                View projects
-              </Button>
+          <div className="grid gap-16 md:grid-cols-12 md:gap-8">
+            <div className="md:col-span-7">
+              <Eyebrow className="mb-8">About</Eyebrow>
+              <SurfacingText
+                segments={introSegments}
+                className="text-3xl font-medium leading-[1.2] tracking-tight text-text-primary md:text-[2.625rem]"
+              />
             </div>
+            <div className="md:col-span-4 md:col-start-9 md:pt-1">
+              <Eyebrow className="mb-8">Design philosophy</Eyebrow>
+              <SurfacingText
+                as="h3"
+                segments={philosophyLead}
+                className="mb-4 text-xl font-semibold tracking-tight text-text-primary"
+              />
+              <SurfacingText
+                segments={philosophySegments}
+                className="text-lg leading-relaxed text-text-secondary"
+              />
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* Case Studies */}
+      <Section>
+        <Container>
+          <div className="mb-12 md:mb-16">
+            <Heading level={2} className="mb-4">Selected Work</Heading>
+            <Text size="lg" muted className="max-w-xl">
+              Three projects, from the one I'm building right now to the ones that shaped how I work.
+            </Text>
+          </div>
+          <div className="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-12">
+            {caseStudies.map((study) => (
+              <CaseStudyCard
+                key={study.id}
+                study={study}
+                onOpen={() => onNavigate('projects')}
+                className={caseStudySpans[study.emphasis]}
+              />
+            ))}
           </div>
         </Container>
       </Section>
@@ -58,28 +98,16 @@ export function HomePage({ onOpenChat, onNavigate }: HomePageProps) {
         </Container>
       </Section>
 
-      <Container><Divider /></Container>
+      {/* Contact + footer float on water, echoing the hero */}
+      <WaterPool>
+        <Section className="md:py-36">
+          <Container>
+            <DrinkContact />
+          </Container>
+        </Section>
 
-      {/* Contact */}
-      <Section>
-        <Container>
-          <div className="max-w-xl">
-            <Heading level={2} className="mb-4">Get in Touch</Heading>
-            <Text size="lg" muted className="mb-6">
-              Interested in working together or just want to say hi? Feel free to reach out.
-            </Text>
-            <a
-              href="mailto:cirochen0406@gmail.com"
-              className="inline-block text-lg font-medium text-text-primary underline decoration-border-secondary underline-offset-4 transition-colors hover:decoration-text-primary"
-            >
-              cirochen0406@gmail.com
-            </a>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Footer */}
-      <Footer onNavigate={onNavigate} />
+        <Footer onNavigate={onNavigate} />
+      </WaterPool>
     </>
   )
 }
