@@ -9,11 +9,17 @@ import { CaseStudyPage } from './pages/CaseStudyPage'
 import { ShowcasePage } from './pages/ShowcasePage'
 import { projects } from './data/projects'
 import { useRouteState } from './hooks/useRouteState'
+import { useHeroPassed } from './hooks/useHeroPassed'
+import type { Page } from './types'
+
+// Chat stays out of the way while reading a project, and until the first screen is scrolled past
+const chatPages = new Set<Page>(['home', 'projects'])
 
 export default function App() {
   useLenis()
   const { currentPage, projectId, navigate } = useRouteState()
   const [chatOpen, setChatOpen] = useState(false)
+  const firstFoldPassed = useHeroPassed(0, currentPage, '[data-hero], [data-first-fold]')
 
   return (
     <PageLayout currentPage={currentPage} onNavigate={navigate}>
@@ -33,7 +39,7 @@ export default function App() {
       {chatOpen ? (
         <ChatModal onClose={() => setChatOpen(false)} />
       ) : (
-        <ChatButton onClick={() => setChatOpen(true)} />
+        chatPages.has(currentPage) && <ChatButton visible={firstFoldPassed} onClick={() => setChatOpen(true)} />
       )}
     </PageLayout>
   )

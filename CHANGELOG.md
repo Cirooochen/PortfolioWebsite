@@ -1,5 +1,90 @@
 # Changelog
 
+## 2026-10-18 — Session 7: Project Filters, UI Work Grid, Footer, Water, Detail Page Endings
+
+Work now happens on the `development` branch; `main` is updated only on request.
+
+### Changes
+
+#### Projects page
+- Headline replaced with a sentence, "Designing and building thoughtful digital products"; subtitle removed
+- **Quick filter** (`FilterPills`): All / UI/UX / Development pills, each with a superscript count; active pill filled. Filter applies to both views and is kept in the URL (`?category=development`) alongside `?view=list`; categories with no projects get no pill; result count announced to screen readers
+- View toggle simplified to two round icon-only buttons (names kept as `aria-label` and tooltip)
+- Results fade in on filter or view change (off under reduced motion)
+
+#### Project data
+- `Project.categories` (`ui-ux` | `development`, a project can have both) and `projectCategories` labels
+- Lumen counts as UI/UX and Development
+- **Balance** added: full-stack health tracking app (2025), showcase template; name and year are real, the rest is placeholder (description, role, stack, write-ups, images)
+
+#### Home
+- Selected work: the note + "All projects" row replaced by one centred "More projects →" pill
+- About and Design philosophy labels lead with 👋 and 🤔 instead of the dot (`Eyebrow` `icon` prop)
+- **UI Work grid filled** with placeholder mockups drawn in code (not AI-generated): 3 images and 3 looping videos. One large highlight tile (onboarding flow video) plus regular, tall and wide tiles; phones stack each at its own shape. Videos play only on screen and hold their poster under reduced motion; every tile has alt text
+
+#### Footer
+- Moved to `src/components/footer/` with its content in `src/data/footer.ts`
+- Simplified to one compact row: clock, social links (LinkedIn, Dribbble), "© year Ciro Chen". Site and brand columns, headings and divider removed; `onNavigate` prop dropped
+
+#### Water hero
+- Curvier waterline: broad swell + cross wave + fine ripple, measured along the true width so curves keep their shape on any screen
+- More natural water: tone deepens with depth, a pale band under the surface, soft drifting caustics; depth tone and caustics ease off as the hero fills so it hands over cleanly
+
+#### Chat button
+- Shown only on Home and Projects, never on project detail pages
+- Starts hidden and slides up once the first fold has scrolled away (Home: the water hero; Projects: headline + filter row, marked `data-first-fold`); slides away again when scrolling back up. Unreachable while hidden; fades instead under reduced motion
+- `useHeroPassed` takes an optional selector
+
+#### Project detail pages
+- **Reading progress / back to top** (`ScrollProgressButton`), adapted from Ciro's `ScrollLinkedProgressBtn` without `motion` or `lucide-react`: ring fills with reading progress and doubles as the button's border; past 60% an arrow appears and it scrolls back to the top (via Lenis) and moves focus to the page title. Frosted background matching the navbar
+- **Next project section** (`NextCase`, replaces `NextProject`): dark band with a curved top edge, 80% of the viewport on desktop. Left: "Next project" label, title, description; right: cover image. With a mouse, hovering dims the title, grows the image and swaps the cursor for a trailing "View project" pill. Bottom row: "All projects" pill with count. Touch and keyboard work without hover; reduced motion turns scaling and the pill off
+
+### New Files
+
+| File | Purpose |
+| --- | --- |
+| `src/components/ui/FilterPills.tsx` | Filter pills with counts |
+| `src/components/ui/ScrollProgressButton.tsx` | Reading progress ring / back to top |
+| `src/components/case-study/NextCase.tsx` | Next project section on detail pages |
+| `src/components/footer/Footer.tsx` | Footer (moved from `layout/`) |
+| `src/components/footer/FooterLinkList.tsx` | Inline footer links |
+| `src/data/footer.ts` | Footer content |
+| `public/images/ui-work/*.webp`, `public/videos/ui-work/*.webm` | UI Work placeholder mockups and loops (~1.6 MB) |
+
+### Modified Files
+
+| File | Change |
+| --- | --- |
+| `src/types/index.ts` | `ProjectCategory`, `Project.categories`; `ShowcaseItem` gets `alt`, `poster`, drops `gif` |
+| `src/data/projects.ts`, `showcaseDetails.ts`, `showcase.ts` | Categories, Balance, UI Work items |
+| `src/data/about.ts` | Hometown and city filled in (Ciro's edit) |
+| `src/pages/ProjectsPage.tsx` | Headline, filters, icon toggle, first-fold marker |
+| `src/pages/HomePage.tsx` | More projects button, emoji labels |
+| `src/pages/CaseStudyPage.tsx`, `ShowcasePage.tsx` | `NextCase`, `ScrollProgressButton`, new footer |
+| `src/App.tsx` | Chat button rules |
+| `src/components/chat/ChatButton.tsx` | `visible` prop, slide in/out |
+| `src/components/cards/BentoGrid.tsx` | Mixed-size grid, real media, video behaviour |
+| `src/components/ui/ViewToggle.tsx` | Icon-only round buttons |
+| `src/components/typography/Eyebrow.tsx` | Optional leading icon |
+| `src/components/water/waterSurface.ts` | Waterline shape and water shading |
+| `src/hooks/useHeroPassed.ts` | Optional selector |
+
+### Removed
+- `src/components/case-study/NextProject.tsx` (replaced by `NextCase`)
+- `src/components/layout/Footer.tsx` (moved to `footer/`)
+
+### What's NOT Done
+
+- [ ] **Balance details** — description, role, stack, write-ups and images are placeholders
+- [ ] **UI Work grid** — placeholder mockups; replace with real work
+- [ ] **Footer social links** point to site homepages, not Ciro's profiles
+- [ ] **About intro** — hometown/city still wrapped in `[ ]` brackets, and "Urimqi" vs "Urumqi" in the clock
+- [ ] **Back-to-top button over the dark Next project section** looks greyish; may need a dark variant
+- [ ] **Hero end** — the filled water still meets the white section below in a visible line
+- [ ] Not tested in Safari or on real devices (WebM videos, WebGL water)
+
+---
+
 ## 2026-10-18 — Session 6: Portfolio Master Prompt — Projects Collection, List View, Showcase Template
 
 Following `Portfolio_Claude_Master_Prompt.md` (functional minimalism, “utilitarian, but beautifully designed”).

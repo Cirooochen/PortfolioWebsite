@@ -80,10 +80,15 @@ void main() {
   float hU = texture(u_state, uv + vec2(0.0, u_simTexel.y)).r;
   vec3 n = normalize(vec3((hL - hR) * 4.0, (hD - hU) * 4.0, 1.0));
 
-  // Rising water level, with a gently moving meniscus
-  float wob = sin(uv.x * 9.0 + u_time * 1.3) * 0.006 + sin(uv.x * 23.0 - u_time * 2.1) * 0.0025;
-  float level = mix(-0.08, 1.08, u_fill) + wob + h * 0.03;
+  // Rising water level: a slow broad swell, a cross wave and a fine ripple roll the meniscus.
+  // Measured along the true width, so the curves keep their shape on any screen
+  float x = uv.x * u_aspect;
+  float wob = sin(x * 4.5 + u_time * 0.7) * 0.034
+            + sin(x * 8.0 - u_time * 1.1 + 1.7) * 0.016
+            + sin(x * 17.0 + u_time * 1.9) * 0.004;
+  float level = mix(-0.1, 1.1, u_fill) + wob + h * 0.03;
   float below = smoothstep(level + 0.004, level - 0.004, uv.y);
+  float sub = max(level - uv.y, 0.0);
   float depth = clamp(0.1 + below * (0.6 + 0.3 * u_fill), 0.0, 1.0);
 
   // Refract the name through the surface; deeper water blurs and bends more
@@ -102,8 +107,17 @@ void main() {
   paper = mix(paper, vec3(1.0), glow * 0.6);
   paper += u_accent * 0.03 * glow;
 
-  vec3 deep = vec3(0.948);
+  // Clear just under the surface, gathering tone with depth; evens out once the
+  // hero is nearly full so it hands over cleanly to the page below
+  float settle = 1.0 - smoothstep(0.7, 1.0, u_fill);
+  vec3 deep = mix(vec3(0.958), vec3(0.93), smoothstep(0.0, 0.7, sub) * settle);
   vec3 col = mix(paper, deep, below * (0.55 + 0.45 * u_fill));
+
+  // Caustics: soft light lines that drift through the water, brightest near the surface
+  vec2 cp = vec2(x, uv.y) * 9.0;
+  float cw = sin(cp.x + sin(cp.y * 1.3 + u_time * 0.8) * 1.6 + u_time * 0.5)
+           * sin(cp.y * 1.1 + sin(cp.x * 0.9 - u_time * 0.6) * 1.6 - u_time * 0.4);
+  col += pow(1.0 - abs(cw), 10.0) * 0.038 * below * exp(-sub * 3.5) * (0.35 + 0.65 * settle);
 
   float vis = (1.0 - depth * 0.85) * (1.0 - smoothstep(0.82, 1.0, u_fill));
   vec3 ink = mix(u_ink, deep, depth * 0.55);
@@ -121,10 +135,12 @@ void main() {
   vec3 R = reflect(-L, n);
   col += pow(max(R.z, 0.0), 220.0) * 0.35 * smoothstep(0.0, 0.02, length(n.xy));
 
-  // Meniscus: a bright edge with a soft shadow just under it
+  // Meniscus: a bright edge, then the underside of the surface mirroring light
+  // back down as a pale band with a soft shadow beneath it
   float d = uv.y - level;
   col += exp(-d * d / 0.000007) * 0.07;
-  col -= exp(-(d + 0.012) * (d + 0.012) / 0.00008) * 0.025;
+  col += exp(-(d + 0.007) * (d + 0.007) / 0.00004) * 0.022 * below;
+  col -= exp(-(d + 0.024) * (d + 0.024) / 0.00015) * 0.028;
 
   o = vec4(clamp(col, 0.0, 1.0), 1.0);
 }`

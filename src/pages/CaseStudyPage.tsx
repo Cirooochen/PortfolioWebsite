@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { Container } from '../components/layout/Container'
-import { Footer } from '../components/layout/Footer'
+import { Footer } from '../components/footer/Footer'
+import { ScrollProgressButton } from '../components/ui/ScrollProgressButton'
 import { CaseStudyHero } from '../components/case-study/CaseStudyHero'
 import { MetadataGrid } from '../components/case-study/MetadataGrid'
 import { CaseStudySection } from '../components/case-study/CaseStudySection'
 import { ResultStat } from '../components/case-study/ResultStat'
 import { Prose } from '../components/case-study/Prose'
 import { useRevealOnScroll } from '../hooks/useRevealOnScroll'
-import { NextProject } from '../components/case-study/NextProject'
+import { NextCase } from '../components/case-study/NextCase'
 import { projects } from '../data/projects'
 import { caseStudyDetails } from '../data/caseStudyDetails'
 import type { CaseStudyDetail, CaseStudyKeyWork, CaseStudyStat, NavigateFn } from '../types'
@@ -126,9 +127,10 @@ export function CaseStudyPage({ id, onNavigate }: CaseStudyPageProps) {
         </CaseStudySection>
       </Container>
 
-      <NextProject currentId={id} onNavigate={onNavigate} />
+      <NextCase currentId={id} onNavigate={onNavigate} />
 
-      <Footer onNavigate={onNavigate} />
+      <Footer />
+      <ScrollProgressButton />
     </article>
   )
 }

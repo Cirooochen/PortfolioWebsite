@@ -8,8 +8,13 @@ export interface ChatMessage {
 export interface ShowcaseItem {
   id: string
   title: string
+  /** Describes what the image or video shows */
+  alt: string
   src: string
-  type: 'image' | 'video' | 'gif'
+  /** Still frame for videos, shown before playback and under reduced motion */
+  poster?: string
+  type: 'image' | 'video'
+  /** 'large' is the one highlighted piece; the rest mix sizes around it */
   span: 'normal' | 'wide' | 'tall' | 'large'
 }
 
@@ -27,6 +32,9 @@ export type CaseStudyEmphasis = 'feature' | 'standard' | 'compact'
  */
 export type ProjectTemplate = 'case-study' | 'showcase'
 
+/** Kind of work, used by the Projects page filter. A project can be both. */
+export type ProjectCategory = 'ui-ux' | 'development'
+
 /** One entry in the collection; shared by Home, both Projects views and the detail pages. */
 export interface Project {
   id: string
@@ -42,6 +50,7 @@ export interface Project {
   discipline: string
   role: string
   tags: string[]
+  categories: ProjectCategory[]
   /** Shows a live "Currently working" tag */
   current?: boolean
   image: {

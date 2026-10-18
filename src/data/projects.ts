@@ -1,7 +1,13 @@
-import type { Project } from '../types'
+import type { Project, ProjectCategory } from '../types'
 
-// Oaks and EV Smart Money are real; Lumen's write-up is coming. The three
-// showcase projects are placeholders until real work replaces them.
+/** Filter options on the Projects page, in display order. */
+export const projectCategories: { id: ProjectCategory; label: string }[] = [
+  { id: 'ui-ux', label: 'UI/UX' },
+  { id: 'development', label: 'Development' },
+]
+
+// Oaks and EV Smart Money are real; Lumen's write-up is coming. Balance is real
+// but its details are placeholders, as are the other three showcase projects.
 export const projects: Project[] = [
   {
     id: 'oaks',
@@ -14,6 +20,7 @@ export const projects: Project[] = [
     discipline: 'Fintech · Product design',
     role: 'Product Designer',
     tags: ['Case study', 'Fintech'],
+    categories: ['ui-ux'],
     image: {
       unsplashId: '1579621970563-ebec7560ff3e',
       alt: 'A green seedling growing out of a pile of coins',
@@ -36,6 +43,7 @@ export const projects: Project[] = [
     discipline: 'Fintech · Web app',
     role: 'UI/UX and web design',
     tags: ['Case study', 'Fintech'],
+    categories: ['ui-ux'],
     image: {
       unsplashId: '1486406146926-c627a92ad1ab',
       alt: 'Glass office towers seen from below against a cloudy sky',
@@ -58,6 +66,7 @@ export const projects: Project[] = [
     discipline: 'AI · Marketing website',
     role: 'Product Designer, Web',
     tags: ['Case study', 'Website'],
+    categories: ['ui-ux', 'development'],
     image: {
       unsplashId: '1531297484001-80022131f5a1',
       alt: 'A laptop glowing in a dark room',
@@ -70,6 +79,28 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: 'balance',
+    title: 'Balance',
+    subtitle: 'A full-stack health tracking app for logging sleep, meals and activity in one place',
+    year: '2025',
+    template: 'showcase',
+    discipline: 'Health · Full-stack web app',
+    role: 'Full-stack developer',
+    tags: ['Showcase', 'Full-stack'],
+    categories: ['development'],
+    image: {
+      unsplashId: '1434494878577-86c23bcb06b9',
+      alt: 'A person checking a smartwatch on their wrist',
+    },
+    previewImages: [
+      '1434494878577-86c23bcb06b9',
+      '1510017803434-a899398421b3',
+      '1512621776951-a57141f2eefd',
+      '1571019613454-1cb2f99b2d8b',
+      '1517694712202-14dd9538aa97',
+    ],
+  },
+  {
     id: 'tempo',
     title: 'Tempo',
     subtitle: 'Interaction design for a class booking app, from browsing to a booked spot in three taps',
@@ -78,6 +109,7 @@ export const projects: Project[] = [
     discipline: 'Mobile app · Interaction design',
     role: 'Product Designer',
     tags: ['Showcase', 'Mobile'],
+    categories: ['ui-ux'],
     image: {
       unsplashId: '1586953208448-b95a79798f07',
       alt: 'A smartphone lying on a white table, showing a feed of photo cards',
@@ -98,6 +130,7 @@ export const projects: Project[] = [
     discipline: 'SaaS · Dashboard UI',
     role: 'Product Designer',
     tags: ['Showcase', 'SaaS'],
+    categories: ['ui-ux'],
     image: {
       unsplashId: '1551288049-bebda4e38f71',
       alt: 'A dark analytics dashboard with bar charts and line graphs on a monitor',
@@ -119,6 +152,7 @@ export const projects: Project[] = [
     discipline: 'SaaS · Design system',
     role: 'Design system lead',
     tags: ['Showcase', 'Design system'],
+    categories: ['ui-ux'],
     image: {
       unsplashId: '1561070791-2526d30994b5',
       alt: 'Printed colour swatches beside a tablet showing stacked colour tokens',

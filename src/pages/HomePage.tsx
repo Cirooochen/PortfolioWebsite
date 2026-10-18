@@ -1,7 +1,7 @@
 import { Container } from '../components/layout/Container'
 import { Section } from '../components/layout/Section'
 import { Divider } from '../components/layout/Divider'
-import { Footer } from '../components/layout/Footer'
+import { Footer } from '../components/footer/Footer'
 import { Heading } from '../components/typography/Heading'
 import { Text } from '../components/typography/Text'
 import { Eyebrow } from '../components/typography/Eyebrow'
@@ -40,14 +40,14 @@ export function HomePage({ onOpenChat, onNavigate }: HomePageProps) {
         <Container>
           <div className="grid gap-16 md:grid-cols-12 md:gap-8">
             <div className="md:col-span-7">
-              <Eyebrow className="mb-8">About</Eyebrow>
+              <Eyebrow icon="👋" className="mb-8">About</Eyebrow>
               <SurfacingText
                 segments={introSegments}
                 className="text-3xl font-medium leading-[1.2] tracking-tight text-text-primary md:text-[2.625rem]"
               />
             </div>
             <div className="md:col-span-4 md:col-start-9 md:pt-1">
-              <Eyebrow className="mb-8">Design philosophy</Eyebrow>
+              <Eyebrow icon="🤔" className="mb-8">Design philosophy</Eyebrow>
               <SurfacingText
                 as="h3"
                 segments={philosophyLead}
@@ -81,14 +81,13 @@ export function HomePage({ onOpenChat, onNavigate }: HomePageProps) {
               />
             ))}
           </div>
-          <div className="mt-16 flex flex-wrap items-baseline justify-between gap-4 border-t border-border-primary pt-6">
-            <p className="text-text-secondary">Selected case studies. More work, including shorter visual projects, lives on the Projects page.</p>
+          <div className="mt-16 flex justify-center md:mt-20">
             <a
               href="/projects"
               onClick={inAppClick(() => onNavigate('projects'))}
-              className="group inline-flex items-center gap-2 font-medium text-text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus"
+              className="group inline-flex h-12 items-center gap-2 rounded-full border border-border-primary px-7 text-base font-medium text-text-primary transition-colors duration-200 hover:border-bg-inverse hover:bg-bg-inverse hover:text-text-inverse focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus motion-reduce:transition-none md:h-14 md:px-8"
             >
-              All projects
+              More projects
               <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none">→</span>
             </a>
           </div>
@@ -118,7 +117,7 @@ export function HomePage({ onOpenChat, onNavigate }: HomePageProps) {
           </Container>
         </Section>
 
-        <Footer onNavigate={onNavigate} />
+        <Footer />
       </WaterPool>
     </>
   )

@@ -4,6 +4,55 @@ import { unsplash } from './media'
 // Placeholder showcase projects: copy and images stand in until real work replaces them
 export const showcaseDetails: ShowcaseDetail[] = [
   {
+    id: 'balance',
+    title: 'Balance',
+    oneLiner: 'A full-stack health tracking app for logging sleep, meals and activity in one place.',
+    metadata: [
+      { label: 'Role', value: 'Full-stack developer' },
+      { label: 'Year', value: '2025' },
+      { label: 'Type', value: ['Health', 'Full-stack web app'] },
+      { label: 'Stack', value: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'] },
+    ],
+    intro: [
+      'Balance brings the everyday health habits people already track, like sleep, meals and exercise, into one simple daily log.',
+      'I built it end to end, from the database and API to the interface, with a focus on making each entry take only a few seconds.',
+    ],
+    blocks: [
+      {
+        type: 'mediaOnly',
+        media: [
+          unsplash(
+            '1510017803434-a899398421b3',
+            'A black fitness tracker band lying on a grey fabric surface',
+            'Activity syncs in from a wearable, so the day fills itself in.',
+          ),
+        ],
+      },
+      {
+        type: 'textMedia',
+        title: 'One log for the whole day',
+        description:
+          'Sleep, meals and workouts sit on a single timeline instead of separate screens. Each entry type has its own quick form, and the day’s totals update as soon as something is saved.',
+        media: unsplash('1512621776951-a57141f2eefd', 'A bowl of salad with avocado, chickpeas and roasted vegetables'),
+      },
+      {
+        type: 'textMedia',
+        title: 'Built to be fast',
+        description:
+          'A typed API shares its data models with the front end, so a change to an entry type is checked in both places. Entries save optimistically and sync in the background.',
+        media: unsplash('1517694712202-14dd9538aa97', 'A laptop on a white desk showing code in a dark editor'),
+        mediaFirst: true,
+      },
+      {
+        type: 'mediaOnly',
+        media: [
+          unsplash('1571019613454-1cb2f99b2d8b', 'A woman doing sit-ups on a mat in a bright room'),
+          unsplash('1544367567-0f2fcb009e0b', 'A person in a yoga pose silhouetted against a sunset'),
+        ],
+      },
+    ],
+  },
+  {
     id: 'tempo',
     title: 'Tempo',
     oneLiner: 'Interaction design for a class booking app, from browsing to a booked spot in three taps.',

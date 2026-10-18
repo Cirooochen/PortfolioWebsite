@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react'
 import { Container } from '../components/layout/Container'
-import { Footer } from '../components/layout/Footer'
+import { Footer } from '../components/footer/Footer'
+import { ScrollProgressButton } from '../components/ui/ScrollProgressButton'
 import { CaseStudyHero } from '../components/case-study/CaseStudyHero'
 import { MetadataGrid } from '../components/case-study/MetadataGrid'
 import { BlockList } from '../components/case-study/BlockList'
 import { Prose } from '../components/case-study/Prose'
-import { NextProject } from '../components/case-study/NextProject'
+import { NextCase } from '../components/case-study/NextCase'
 import { useRevealOnScroll } from '../hooks/useRevealOnScroll'
 import { projects } from '../data/projects'
 import { showcaseDetails } from '../data/showcaseDetails'
@@ -75,9 +76,10 @@ export function ShowcasePage({ id, onNavigate }: ShowcasePageProps) {
         <BlockList blocks={showcase.blocks} headingLevel={2} className="mt-cs-block" />
       </Container>
 
-      <NextProject currentId={id} onNavigate={onNavigate} />
+      <NextCase currentId={id} onNavigate={onNavigate} />
 
-      <Footer onNavigate={onNavigate} />
+      <Footer />
+      <ScrollProgressButton />
     </article>
   )
 }
