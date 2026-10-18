@@ -17,16 +17,16 @@ A product designer's personal portfolio website with an AI substitute (Claude-po
 Home
 ├── Hero (name, title, bio)
 ├── "Talk to my AI" CTA → opens Chat
-└── "View projects" → navigates to Projects
+├── "View projects" → navigates to Projects
+└── Selected Work cards → Case study page
+
+Case study (/work/:id) — spec: docs/case-study-design-spec.md
+├── Hero + metadata grid
+├── Background, Challenge, Persona?, Key work 1, Key work 2?, Results
+└── Summary, next case study, footer
 
 Projects
-├── Project grid (2-column responsive)
-└── Project detail modal (on card click)
-    ├── Overview
-    ├── Challenge
-    ├── Approach
-    ├── Outcome
-    └── Key Metrics
+└── Case study grid (2-column responsive) → Case study page
 
 Chat (overlay, accessible from any page)
 ├── Floating button (bottom-right, always visible)
@@ -45,13 +45,13 @@ src/
 │   ├── layout/        Container, Section, PageLayout, Divider
 │   ├── typography/    Heading, Text, Label
 │   ├── navigation/    NavBar, NavLink
-│   ├── cards/         ProjectCard
+│   ├── cards/         CaseStudyCard, BentoGrid
 │   ├── chat/          ChatButton, ChatModal, ChatMessage, ChatInput
-│   ├── project/       ProjectDetail
+│   ├── case-study/    Case study page sections and content blocks
 │   └── ui/            Button, Tag
-├── data/              projects.ts, designer-info.ts
+├── data/              caseStudies.ts, caseStudyDetails.ts, designer-info.ts
 ├── hooks/             useChat.ts, useRouteState.ts
-├── pages/             HomePage.tsx, ProjectsPage.tsx
+├── pages/             HomePage.tsx, ProjectsPage.tsx, CaseStudyPage.tsx
 ├── services/          claude.ts
 ├── styles/            globals.css
 ├── types/             index.ts
@@ -79,8 +79,9 @@ api/
 ### Phase 3 — Pages (DONE)
 - [x] HomePage with hero section
 - [x] ProjectsPage with responsive card grid
-- [x] ProjectDetail modal with case study sections
-- [x] State-based routing between pages
+- [x] ~~ProjectDetail modal~~ → replaced by case study pages (Session 5)
+- [x] State-based routing between pages (URL-backed since Session 5)
+- [x] Case study detail pages (`/work/:id`)
 
 ### Phase 4 — Chat UI (DONE)
 - [x] ChatButton (floating FAB)

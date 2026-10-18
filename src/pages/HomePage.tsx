@@ -7,14 +7,15 @@ import { Text } from '../components/typography/Text'
 import { Eyebrow } from '../components/typography/Eyebrow'
 import { SurfacingText } from '../components/text/SurfacingText'
 import { BentoGrid } from '../components/cards/BentoGrid'
-import { CaseStudyCard } from '../components/cards/CaseStudyCard'
+import { ProjectCard } from '../components/cards/ProjectCard'
 import { DrinkContact } from '../components/contact/DrinkContact'
 import { WaterHero } from '../components/hero/WaterHero'
 import { WaterPool } from '../components/water/WaterPool'
 import { showcaseItems } from '../data/showcase'
-import { caseStudies } from '../data/caseStudies'
+import { featuredProjects } from '../data/projects'
 import { introSegments, philosophyLead, philosophySegments } from '../data/about'
-import type { CaseStudyEmphasis, Page } from '../types'
+import { inAppClick } from '../hooks/useRouteState'
+import type { CaseStudyEmphasis, NavigateFn } from '../types'
 
 // Grid placement per card emphasis: a full-width feature, then a staggered pair
 const caseStudySpans: Record<CaseStudyEmphasis, string> = {
@@ -25,7 +26,7 @@ const caseStudySpans: Record<CaseStudyEmphasis, string> = {
 
 interface HomePageProps {
   onOpenChat: () => void
-  onNavigate: (page: Page) => void
+  onNavigate: NavigateFn
 }
 
 export function HomePage({ onOpenChat, onNavigate }: HomePageProps) {
@@ -71,14 +72,25 @@ export function HomePage({ onOpenChat, onNavigate }: HomePageProps) {
             </Text>
           </div>
           <div className="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-12">
-            {caseStudies.map((study) => (
-              <CaseStudyCard
-                key={study.id}
-                study={study}
-                onOpen={() => onNavigate('projects')}
-                className={caseStudySpans[study.emphasis]}
+            {featuredProjects.map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                onOpen={() => onNavigate('project', project.id)}
+                className={caseStudySpans[project.emphasis ?? 'standard']}
               />
             ))}
+          </div>
+          <div className="mt-16 flex flex-wrap items-baseline justify-between gap-4 border-t border-border-primary pt-6">
+            <p className="text-text-secondary">Selected case studies. More work, including shorter visual projects, lives on the Projects page.</p>
+            <a
+              href="/projects"
+              onClick={inAppClick(() => onNavigate('projects'))}
+              className="group inline-flex items-center gap-2 font-medium text-text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus"
+            >
+              All projects
+              <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none">→</span>
+            </a>
           </div>
         </Container>
       </Section>

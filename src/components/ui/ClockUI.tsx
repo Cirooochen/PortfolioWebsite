@@ -72,9 +72,9 @@ export function ClockUI() {
           <button
             key={loc.label}
             onClick={() => setActiveIdx(i)}
-            className="flex items-center gap-1.5 bg-transparent border-none cursor-pointer p-0 text-xs tracking-wide"
+            className="flex items-center gap-1.5 bg-transparent border-none cursor-pointer p-0 text-sm tracking-wide"
           >
-            <span className={`text-[11px] min-w-5 ${i === activeIdx ? 'text-text-primary' : 'text-text-tertiary'}`}>
+            <span className={`min-w-5 ${i === activeIdx ? 'text-text-primary' : 'text-text-tertiary'}`}>
               {i === activeIdx ? '[•]' : '[ ]'}
             </span>
             <span className={i === activeIdx ? 'font-medium text-text-primary' : 'text-text-tertiary'}>

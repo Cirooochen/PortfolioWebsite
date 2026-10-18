@@ -1,5 +1,153 @@
 # Changelog
 
+## 2026-10-18 — Session 6: Portfolio Master Prompt — Projects Collection, List View, Showcase Template
+
+Following `Portfolio_Claude_Master_Prompt.md` (functional minimalism, “utilitarian, but beautifully designed”).
+
+### Changes
+
+#### Shared project data
+- One collection, `src/data/projects.ts` (replaces `caseStudies.ts`), feeds Home, both Projects views and both detail templates
+- Each `Project` has `template` (`case-study` | `showcase`), `featured`, `discipline`, `role` and 3–5 `previewImages`
+- `featuredProjects` = the three Home projects; dev build warns if there aren't exactly 3 or one isn't a case study
+- Route renamed `case-study` → `project` (`/work/:id` unchanged); `App` picks the template per project
+
+#### Home
+- Shows exactly the 3 featured case studies (Oaks, EV Smart Money, Lumen) plus an "All projects →" link explaining the rest lives on Projects
+- Cards are now real `<a href>` links (open in new tab works)
+
+#### Projects page — all 6 projects, two views
+- Cards / List segmented toggle (`aria-pressed` buttons, focus stays on the toggle); view saved in the URL (`?view=list`) so reload and Back keep it
+- **Interactive list** (`ProjectList`): each row shows its number, title, year and an arrow; the one-line description opens under the title on hover, keyboard focus or Preview (discipline, role and type removed by request); other rows dim on hover
+- **Hover preview follows the cursor** (changed by request from the fixed side panel): a 4:3 image carousel trails the pointer with light easing, appears on hover and fades out on leave; no caption. It flips to the pointer's left near the right edge so it never leaves the screen or covers the year/arrow, and never takes clicks
+- Carousel: 3–5 placeholder images per project (`Project.previewImages`), cutting to the next every 0.5s in a loop; restarts from the first image per project. Replaces the hover video; the Tempo clip stays on its showcase page
+- Touch / narrow screens: explicit Preview button per row opens the same carousel inline (`aria-expanded`); tapping the row always opens the project. Escape closes an open preview and returns focus to its button
+- Keyboard: focusing a row's link shows the carousel beside that row and reveals its description; Escape hides it
+- Reduced motion: preview stays still beside the row and shows only the first image; no transitions
+
+#### Visual Showcase template — `ShowcasePage`
+- Compact hero (kicker "Visual showcase", back to All projects) → metadata → short intro → media blocks; reuses case study hero, metadata grid, block list and media figure
+- Three placeholder showcase projects: Tempo (mobile booking interaction, with a prototype video), Pulse (analytics dashboard), Kitbase (design system)
+- "Next project" link (`NextProject`) now shared by both templates and cycles through all projects
+
+#### Mobile navigation
+- Below `md` (768px) the nav links become a menu button: two lines that rotate into a cross (`aria-expanded`, label switches Open/Close menu)
+- Full-screen menu (`MobileMenu`) slides in from the right; page behind is `inert` and stops scrolling (Lenis paused via new `getLenis()`)
+- Large numbered links (Home, Projects; current page underlined) rise in one after another; email link (`mailto:`) pinned at the bottom under "Get in touch"
+- Background: the site's WebGL water at 70% opacity, faded out toward the top so links stay crisp; ambient drops, a trail under the finger, ripples on tap. Mounted only while the menu is visible
+- Focus moves to the first link on open and back to the menu button on close; Escape closes; resizing past `md` closes it
+- Reduced motion: menu fades instead of sliding, no staggered rise, no ambient ripples
+
+#### Typography
+- Essential small text raised to 14px: `Label`, `Eyebrow`, card year, case study `cs-label` (13 → 14px), footer clock controls (12 → 14px)
+- 12px kept only for secondary annotations: card tags and the hero status pill
+
+### New Files
+
+| File | Purpose |
+| --- | --- |
+| `src/components/projects/ProjectList.tsx` | Interactive list view with cursor-following image carousel |
+| `src/components/ui/ViewToggle.tsx` | Segmented view toggle |
+| `src/components/navigation/MobileMenu.tsx` | Full-screen mobile menu with water background |
+| `src/components/case-study/NextProject.tsx` | Next project link for both templates |
+| `src/pages/ShowcasePage.tsx` | Visual Showcase template |
+| `src/data/showcaseDetails.ts` | Showcase content (placeholders) |
+| `src/data/media.ts` | Shared `unsplash()` placeholder helper |
+| `public/videos/tempo-preview.webm` | Placeholder prototype clip (6s, 300 KB, generated) |
+
+### Modified Files
+
+| File | Change |
+| --- | --- |
+| `src/types/index.ts` | `Project`, `ProjectTemplate`, `ShowcaseDetail`; `project` page |
+| `src/data/projects.ts` | Renamed from `caseStudies.ts`; all 6 projects, `featuredProjects` |
+| `src/components/cards/ProjectCard.tsx` | Renamed from `CaseStudyCard.tsx`; real link, emphasis override, 14px year |
+| `src/hooks/useRouteState.ts` | `project` route, `projectHref()`, `inAppClick()` |
+| `src/hooks/useLenis.ts` | `getLenis()` for pausing scroll |
+| `src/components/navigation/NavBar.tsx` | Menu button and `MobileMenu` below `md` |
+| `src/pages/HomePage.tsx`, `ProjectsPage.tsx`, `CaseStudyPage.tsx`, `src/App.tsx` | Featured projects, view toggle, template switch, shared next link |
+| `src/components/case-study/CaseStudyHero.tsx` | `kind`, `backLabel`, `compact` props |
+| `Label`, `Eyebrow`, `ClockUI`, `globals.css` | Text size fixes |
+
+### What's NOT Done
+
+- [ ] **Lumen content** — shown as a real project but copy, metrics and images are placeholders
+- [ ] **Showcase projects** — Tempo, Pulse and Kitbase are placeholders; replace with real work
+- [ ] **EV Smart Money results** — drafted, kept for now
+- [ ] **UI Work section on Home** — six empty media slots; consider replacing with the showcase projects
+- [ ] **Home Selected Work intro** still says "the one I'm building right now", but no project is marked current
+
+---
+
+## 2026-10-17 — Session 5: Case Study Detail Pages
+
+### Changes
+
+#### Case study pages — `/work/:id`
+- Each Selected Work card on Home now opens a dedicated case study page (Gridwise, Ledger, Lumen) instead of linking to the Projects page
+- Built to `docs/case-study-design-spec.md`: Nordic editorial style, warm off-white page, deep slate accent (`#2F4F4F`) used only for labels, numbers, and the active index item
+- Page structure: hero → metadata grid → Background → Challenge → Persona (optional) → Key work 1 → Key work 2 (optional) → Results → Summary; optional sections disappear from the page and the index
+- Content spans the full page width; body text stays at reading width (≈70 characters). The spec's sticky section index was built, then removed by request
+- Three block types usable in any section or sub-section: text + media (side or stacked), text only, media only (1–3 items)
+- Gentle 300ms fade-in for blocks below the fold, off with `prefers-reduced-motion`
+- "Next case study" link and site footer at the end of each page; page title updates per study
+
+#### Oaks — first real case study
+- Replaces the Gridwise placeholder as the featured case study (`/work/oaks`); content rewritten from the original Webflow case study in plain, simple language
+- Story: background → challenge → personas (Alexa, Ryan) → new onboarding (data, failed quick fix, research, brainstorm, final design) → product pivot (in-store visits, prepaid-card concept) → results (14 merchants, 676 sign-ups, 2.4% sign-up rate, 32 accounts) → lessons
+- Persona portraits are real (`public/images/case-studies/oaks/`, 1000px JPEGs), shown in a new 4:5 `portrait` text + media layout that alternates sides; Challenge has a real illustration in a square frame (`aspect: 'square'`); other images are Unsplash placeholders until the real screens are exported
+
+#### EV Smart Money — second real case study
+- Replaces the Ledger placeholder (`/work/ev-smart-money`); rewritten from the original Webflow case study in plain language
+- Story: background → challenge → persona → research (competitors, journey map, first-flow testing) → onboarding design (4 principles, process, final screens) → launch → lessons
+- Results and Summary were not in the source and are drafted — need real outcome numbers
+- Persona portrait is real (`public/images/case-studies/ev-smart-money/`), in the 4:5 portrait layout; other images are Unsplash placeholders
+
+#### Case study hero + metadata
+- Hero fills the first screen with metadata pinned at the fold; title words rise in from a mask, an accent rule draws beneath, then the summary (new `cs-lead` size) and metadata fade in
+- Title block drifts up and fades slightly on scroll; "In progress" status for current projects; all motion off with `prefers-reduced-motion`
+- Metadata: lighter 16px values, hairline over each column, label/value rows on mobile; values can be lists (`CaseStudyMeta`), shown one entry per line
+
+#### Projects page
+- Lists the same three case studies as equal-sized cards; each opens its case study page
+- Removed the old project popup and its data: `ProjectDetail`, `ProjectCard`, `src/data/projects.ts`, and the `Project` type
+
+#### Routing
+- `useRouteState` now syncs with the URL (`/`, `/projects`, `/work/:id`) via the History API — links are shareable and back/forward work
+- `vercel.json` rewrites non-API paths to `index.html` so deep links load on Vercel
+
+#### Design tokens
+- `cs-*` tokens in `globals.css`: colours, fluid type scale (display / section / subtitle / body / caption / label / stat), section rhythm, reading width (`32em`), media radius
+
+### New Files
+
+| File | Purpose |
+| --- | --- |
+| `docs/case-study-design-spec.md` | Design spec for case study pages |
+| `src/pages/CaseStudyPage.tsx` | Case study page layout |
+| `src/components/case-study/*` | `CaseStudyHero`, `MetadataGrid`, `SectionHeader`, `CaseStudySection`, `ResultStat`, `TextMedia`, `TextOnly`, `MediaOnly`, `BlockList`, `MediaFigure`, `Prose` |
+| `src/data/caseStudyDetails.ts` | Structured case study content (placeholder SaaS cases) |
+| `src/hooks/useRevealOnScroll.ts` | Scroll fade-in for `[data-reveal]` elements |
+| `vercel.json` | SPA rewrite for deep links |
+
+### Modified Files
+
+| File | Change |
+| --- | --- |
+| `src/types/index.ts` | `case-study` page, `NavigateFn`, case study content types |
+| `src/hooks/useRouteState.ts` | URL-backed routing |
+| `src/App.tsx`, `src/pages/HomePage.tsx`, `src/pages/ProjectsPage.tsx` | Render the case study page; cards open it |
+| `src/components/layout/PageLayout.tsx` | Off-white background on case study pages |
+| `src/styles/globals.css` | `cs-*` tokens, reveal styles |
+
+### What's NOT Done
+
+- [ ] **Real case study content** — Oaks and EV Smart Money are real; Lumen is still a placeholder
+- [ ] **EV Smart Money results** — add real outcome metrics; confirm the drafted summary
+- [ ] **Oaks images** — replace Unsplash placeholders with the real screens, flows, and team photo
+
+---
+
 ## 2026-10-16 — Session 4: Water Hero, Intro, Case Studies, Drink Contact
 
 ### Changes
@@ -52,7 +200,7 @@
 ### What's NOT Done
 
 - [ ] **About placeholders** — replace `[hometown]` and `[current city]` in `src/data/about.ts`
-- [ ] **Real case studies** — replace placeholder projects in `src/data/caseStudies.ts`; cards currently link to the Projects page
+- [ ] **Real case studies** — replace placeholder projects in `src/data/caseStudies.ts`; ~~cards currently link to the Projects page~~ (Session 5: cards open case study pages)
 - [ ] Everything still open from Session 3 below (Vercel deploy, real content, social links, favicon, meta tags)
 
 ---

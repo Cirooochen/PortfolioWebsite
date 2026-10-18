@@ -9,7 +9,7 @@ interface PageLayoutProps {
 
 export function PageLayout({ children, currentPage, onNavigate }: PageLayoutProps) {
   return (
-    <div className="min-h-screen bg-bg-primary">
+    <div className={`min-h-screen ${currentPage === 'project' ? 'bg-cs-paper' : 'bg-bg-primary'}`}>
       <NavBar currentPage={currentPage} onNavigate={onNavigate} />
       <main>{children}</main>
     </div>
