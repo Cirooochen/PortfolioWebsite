@@ -15,13 +15,13 @@ interface MediaFigureProps {
   className?: string
 }
 
-/** Image or video at a fixed aspect ratio, with an optional caption. */
+/** Image or video at a fixed aspect ratio, or its own shape when `natural`, with an optional caption. */
 export function MediaFigure({ media, aspect = 'wide', className = '' }: MediaFigureProps) {
-  const frame = `size-full object-cover`
+  const frame = media.natural ? 'block h-auto w-full' : 'size-full object-cover'
 
   return (
     <figure className={className}>
-      <div className={`overflow-hidden rounded-cs bg-cs-rule ${aspectStyles[aspect]}`}>
+      <div className={`overflow-hidden rounded-cs bg-cs-rule ${media.natural ? '' : aspectStyles[aspect]}`}>
         {media.kind === 'video' ? (
           <video
             src={media.src}

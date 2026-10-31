@@ -2,10 +2,9 @@ import { Container } from '../components/layout/Container'
 import { Section } from '../components/layout/Section'
 import { Divider } from '../components/layout/Divider'
 import { Footer } from '../components/footer/Footer'
-import { Heading } from '../components/typography/Heading'
-import { Text } from '../components/typography/Text'
 import { Eyebrow } from '../components/typography/Eyebrow'
 import { SurfacingText } from '../components/text/SurfacingText'
+import { ScrambleHeading } from '../components/text/ScrambleHeading'
 import { BentoGrid } from '../components/cards/BentoGrid'
 import { ProjectCard } from '../components/cards/ProjectCard'
 import { DrinkContact } from '../components/contact/DrinkContact'
@@ -66,10 +65,7 @@ export function HomePage({ onOpenChat, onNavigate }: HomePageProps) {
       <Section>
         <Container>
           <div className="mb-12 md:mb-16">
-            <Heading level={2} className="mb-4">Selected Work</Heading>
-            <Text size="lg" muted className="max-w-xl">
-              Three projects, from the one I'm building right now to the ones that shaped how I work.
-            </Text>
+            <ScrambleHeading>Selected Work</ScrambleHeading>
           </div>
           <div className="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-12">
             {featuredProjects.map((project) => (
@@ -96,14 +92,11 @@ export function HomePage({ onOpenChat, onNavigate }: HomePageProps) {
 
       <Container><Divider /></Container>
 
-      {/* UI Work Showcase */}
+      {/* Showcase */}
       <Section>
         <Container>
           <div className="mb-12">
-            <Heading level={2} className="mb-4">UI Work</Heading>
-            <Text size="lg" muted className="max-w-xl">
-              A visual collection of interfaces, interactions, and design explorations.
-            </Text>
+            <ScrambleHeading>Showcase</ScrambleHeading>
           </div>
           <BentoGrid items={showcaseItems} />
         </Container>

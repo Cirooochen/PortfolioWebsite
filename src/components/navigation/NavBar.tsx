@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Container } from '../layout/Container'
 import { NavLink } from './NavLink'
 import { MobileMenu } from './MobileMenu'
+import { CurrentlyTicker } from '../ui/CurrentlyTicker'
 import { useHeroPassed } from '../../hooks/useHeroPassed'
 import type { Page } from '../../types'
 
@@ -46,13 +47,11 @@ export function NavBar({ currentPage, onNavigate }: NavBarProps) {
           <div className="grid items-center">
             <div
               aria-hidden={scrolled}
-              className={`col-start-1 row-start-1 flex items-center gap-2 text-sm transition-all duration-500 ${
+              className={`col-start-1 row-start-1 text-sm transition-all duration-500 ${
                 scrolled ? 'pointer-events-none -translate-y-2 opacity-0' : 'translate-y-0 opacity-100'
               }`}
             >
-              <span className="size-1.5 rounded-full bg-focus animate-pulse-dot" />
-              <span className="text-text-tertiary">Currently:</span>
-              <span className="font-medium text-text-primary">developing an app</span>
+              <CurrentlyTicker paused={scrolled} />
             </div>
             <button
               onClick={() => go('home')}

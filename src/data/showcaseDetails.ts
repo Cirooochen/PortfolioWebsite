@@ -1,8 +1,112 @@
 import type { ShowcaseDetail } from '../types'
-import { unsplash } from './media'
+import { image, unsplash } from './media'
 
-// Placeholder showcase projects: copy and images stand in until real work replaces them
+const tvInsight = '/images/case-studies/TVInsight'
+
+// TV Insight is real work (its copy is a draft that only describes the screens). The other
+// showcase projects are placeholders: copy and images stand in until real work replaces them.
 export const showcaseDetails: ShowcaseDetail[] = [
+  {
+    id: 'tv-insight',
+    title: 'TV Insight',
+    oneLiner: 'A live audience dashboard that shows TV channels who is watching, minute by minute.',
+    metadata: [
+      { label: 'Role', value: 'Product Designer' },
+      { label: 'Year', value: '2022' },
+      { label: 'Type', value: ['Media analytics', 'Dashboard UI'] },
+      { label: 'Platform', value: ['Web', 'Tablet', 'Mobile'] },
+    ],
+    intro: [
+      'TV Insight measures TV audiences in real time. Channel teams use it to follow how many people are watching, how viewers react to ad breaks, and how a programme compares with last week or a competitor.',
+      'The redesign turned a dense analytics tool into a calmer live board, built from reusable widgets and a shared design system.',
+    ],
+    blocks: [
+      {
+        type: 'mediaOnly',
+        media: [
+          image(
+            `${tvInsight}/tvinsight_NewProduct.png`,
+            'The new live board: a gauge showing the live programme outperforming last week by 75%, viewer numbers, an age group chart and a live net reach chart',
+            'The new live board.',
+            true,
+          ),
+        ],
+      },
+      {
+        type: 'textMedia',
+        title: 'Where it started',
+        description:
+          'The previous version showed everything at once: a long live net reach chart, channel switches and four key numbers, with little sense of what mattered right now.',
+        media: image(
+          `${tvInsight}/tvinsight_OldProductImage.png`,
+          'The previous dashboard: a dark sidebar, four key numbers, a large live net reach area chart and a live channel switches chart',
+          'The dashboard before the redesign.',
+        ),
+      },
+      {
+        type: 'textMedia',
+        title: 'One widget for each question',
+        description:
+          'Each widget answers one question: how is the live show doing, who is watching, and what happened during the last ad break. Filters for date, devices, time of day and target group sit in one side panel.',
+        media: image(
+          `${tvInsight}/tvinsight_ProductWidget.png`,
+          'Widgets for the live programme, viewer numbers and advertisement performance, with a data configuration panel for date, devices and filters',
+        ),
+        mediaFirst: true,
+      },
+      {
+        type: 'mediaOnly',
+        media: [
+          image(
+            `${tvInsight}/tvinsight_ProductWidget2.png`,
+            'More widgets: programme comparison on mobile, age group breakdown, channel performance, a live audience flow chart and the top 5 programmes',
+            'Comparison, channel performance, audience flow and top programmes.',
+            true,
+          ),
+        ],
+      },
+      {
+        type: 'textMedia',
+        title: 'A design system to hold it together',
+        description:
+          'Colours, type, spacing, form components, icons and navigation were collected into one design system, so new widgets look and behave like the rest.',
+        media: image(
+          `${tvInsight}/tvinsight_DesignSystem.png`,
+          'Design system boards: colours, fonts, buttons, form components, icons, side navigation, colour palette, spacing and elevation',
+        ),
+      },
+      {
+        type: 'mediaOnly',
+        media: [
+          image(
+            `${tvInsight}/tvinsight_ProductShowcase1.jpg`,
+            'Someone typing on a laptop showing the channel development dashboard',
+            'On desktop.',
+          ),
+          image(
+            `${tvInsight}/tvinsight_ProductShowCase3.jpg`,
+            'Two hands using a tablet showing the live board with an audience flow chart',
+            'On tablet.',
+          ),
+        ],
+      },
+      {
+        type: 'mediaOnly',
+        media: [
+          image(
+            `${tvInsight}/tvinsight_ProductShowCase2.jpg`,
+            'A hand holding a phone with the programme comparison screen',
+            'On mobile.',
+          ),
+          image(
+            `${tvInsight}/tvinsight_ProductShowCase4.jpg`,
+            'A dark version of the live board on a tablet, with viewer numbers, a performance gauge and an age group chart',
+            'A dark version of the live board.',
+          ),
+        ],
+      },
+    ],
+  },
   {
     id: 'balance',
     title: 'Balance',

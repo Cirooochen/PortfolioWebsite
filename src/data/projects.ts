@@ -6,8 +6,8 @@ export const projectCategories: { id: ProjectCategory; label: string }[] = [
   { id: 'development', label: 'Development' },
 ]
 
-// Oaks and EV Smart Money are real; Lumen's write-up is coming. Balance is real
-// but its details are placeholders, as are the other three showcase projects.
+// Oaks, EV Smart Money and TV Insight are real; Lumen's write-up is coming. Balance is
+// real but its details are placeholders, as are the other three showcase projects.
 export const projects: Project[] = [
   {
     id: 'oaks',
@@ -22,14 +22,14 @@ export const projects: Project[] = [
     tags: ['Case study', 'Fintech'],
     categories: ['ui-ux'],
     image: {
-      unsplashId: '1579621970563-ebec7560ff3e',
-      alt: 'A green seedling growing out of a pile of coins',
+      src: '/images/case-studies/Oaks/Oaks_Thumbnail.png',
+      alt: 'A phone showing the Oaks savings dashboard, lying on a desk beside a notebook and a cup of coffee',
     },
     previewImages: [
-      '1579621970563-ebec7560ff3e',
-      '1512428559087-560fa5ceab42',
-      '1555041469-a586c61ea9bc',
-      '1563986768609-322da13575f3',
+      '/images/case-studies/Oaks/Oaks_Thumbnail.png',
+      '/images/case-studies/Oaks/Oaks_Hero%20Image.png',
+      '/images/case-studies/Oaks/Oaks_Diagnose.png',
+      '/images/case-studies/Oaks/Oaks_NewUserFlow.jpg',
     ],
   },
   {
@@ -45,14 +45,14 @@ export const projects: Project[] = [
     tags: ['Case study', 'Fintech'],
     categories: ['ui-ux'],
     image: {
-      unsplashId: '1486406146926-c627a92ad1ab',
-      alt: 'Glass office towers seen from below against a cloudy sky',
+      src: '/images/case-studies/EVSmartMoney/EV_SmartMoney_Thumbnail.png',
+      alt: 'The EV Smart Money website on a laptop and a phone, showing an exclusive real estate investment',
     },
     previewImages: [
-      '1486406146926-c627a92ad1ab',
-      '1460925895917-afdab827c52f',
-      '1542744173-8e7e53415bb0',
-      '1504868584819-f8e8b4b6d7e3',
+      '/images/case-studies/EVSmartMoney/EV_SmartMoney_Thumbnail.png',
+      '/images/case-studies/EVSmartMoney/EVSmartMoney_ProductImage5.jpg',
+      '/images/case-studies/EVSmartMoney/EVSmartMoney_ProductImage1.jpg',
+      '/images/case-studies/EVSmartMoney/EVSmartMoney_ProductImage4.jpg',
     ],
   },
   {
@@ -68,7 +68,7 @@ export const projects: Project[] = [
     tags: ['Case study', 'Website'],
     categories: ['ui-ux', 'development'],
     image: {
-      unsplashId: '1531297484001-80022131f5a1',
+      src: '1531297484001-80022131f5a1',
       alt: 'A laptop glowing in a dark room',
     },
     previewImages: [
@@ -76,6 +76,27 @@ export const projects: Project[] = [
       '1559028012-481c04fa702d',
       '1555421689-491a97ff2040',
       '1618005182384-a83a8bd57fbe',
+    ],
+  },
+  {
+    id: 'tv-insight',
+    title: 'TV Insight',
+    subtitle: 'A live audience dashboard that shows TV channels who is watching, minute by minute',
+    year: '2022',
+    template: 'showcase',
+    discipline: 'Media · Data visualisation',
+    role: 'Product Designer',
+    tags: ['Showcase', 'Dashboard'],
+    categories: ['ui-ux'],
+    image: {
+      src: '/images/case-studies/TVInsight/TVInsight_Thumbnail.png',
+      alt: 'The TV Insight live board, with a live programme rating gauge, viewer numbers and an age group chart',
+    },
+    previewImages: [
+      '/images/case-studies/TVInsight/TVInsight_Thumbnail.png',
+      '/images/case-studies/TVInsight/tvinsight_ProductShowcase1.jpg',
+      '/images/case-studies/TVInsight/tvinsight_ProductWidget2.png',
+      '/images/case-studies/TVInsight/tvinsight_ProductShowCase3.jpg',
     ],
   },
   {
@@ -89,7 +110,7 @@ export const projects: Project[] = [
     tags: ['Showcase', 'Full-stack'],
     categories: ['development'],
     image: {
-      unsplashId: '1434494878577-86c23bcb06b9',
+      src: '1434494878577-86c23bcb06b9',
       alt: 'A person checking a smartwatch on their wrist',
     },
     previewImages: [
@@ -111,7 +132,7 @@ export const projects: Project[] = [
     tags: ['Showcase', 'Mobile'],
     categories: ['ui-ux'],
     image: {
-      unsplashId: '1586953208448-b95a79798f07',
+      src: '1586953208448-b95a79798f07',
       alt: 'A smartphone lying on a white table, showing a feed of photo cards',
     },
     previewImages: [
@@ -132,7 +153,7 @@ export const projects: Project[] = [
     tags: ['Showcase', 'SaaS'],
     categories: ['ui-ux'],
     image: {
-      unsplashId: '1551288049-bebda4e38f71',
+      src: '1551288049-bebda4e38f71',
       alt: 'A dark analytics dashboard with bar charts and line graphs on a monitor',
     },
     previewImages: [
@@ -154,7 +175,7 @@ export const projects: Project[] = [
     tags: ['Showcase', 'Design system'],
     categories: ['ui-ux'],
     image: {
-      unsplashId: '1561070791-2526d30994b5',
+      src: '1561070791-2526d30994b5',
       alt: 'Printed colour swatches beside a tablet showing stacked colour tokens',
     },
     previewImages: [

@@ -54,11 +54,11 @@ export interface Project {
   /** Shows a live "Currently working" tag */
   current?: boolean
   image: {
-    /** Unsplash photo id, e.g. "1532601224476-15c79f2f7a51" */
-    unsplashId: string
+    /** Path under `public/`, e.g. "/images/case-studies/Oaks/Oaks_Thumbnail.png", or an Unsplash photo id */
+    src: string
     alt: string
   }
-  /** 3–5 Unsplash photo ids cycled in the list view's hover preview */
+  /** 3–5 images cycled in the list view's hover preview; paths or Unsplash photo ids */
   previewImages: string[]
 }
 
@@ -77,6 +77,8 @@ export interface CaseStudyMedia {
   /** Poster frame for videos */
   poster?: string
   caption?: string
+  /** Shows the whole image at its own shape instead of cropping to the frame */
+  natural?: boolean
 }
 
 export type CaseStudyBlock =

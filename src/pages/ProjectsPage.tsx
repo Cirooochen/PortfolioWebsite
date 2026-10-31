@@ -92,7 +92,7 @@ export function ProjectsPage({ onNavigate }: ProjectsPageProps) {
               thoughtful digital products
             </h1>
 
-            <div className="mb-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-4 md:mb-16">
+            <div className="mb-12 flex items-center justify-between gap-x-6 gap-y-4 md:mb-16 lg:flex-wrap">
               <FilterPills label="Filter projects" options={filterOptions} value={filter} onChange={changeFilter} />
               <ViewToggle label="Project view" options={viewOptions} value={view} onChange={changeView} />
             </div>

@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { Tag } from '../ui/Tag'
 import { inAppClick, projectHref } from '../../hooks/useRouteState'
+import { imageUrl, isLocalImage } from '../../data/media'
 import type { CaseStudyEmphasis, Project } from '../../types'
 
 interface ProjectCardProps {
@@ -35,10 +36,6 @@ const imageSizes: Record<CaseStudyEmphasis, string> = {
   compact: '(min-width: 768px) 42vw, 100vw',
 }
 
-function unsplashUrl(id: string, width: number) {
-  return `https://images.unsplash.com/photo-${id}?w=${width}&q=80&auto=format&fit=crop`
-}
-
 /**
  * Project card. Images rest in greyscale; on hover they slowly zoom and
  * bloom into colour while a soft light follows the cursor.
@@ -46,6 +43,7 @@ function unsplashUrl(id: string, width: number) {
 export function ProjectCard({ project, emphasis = project.emphasis ?? 'standard', onOpen, className = '' }: ProjectCardProps) {
   const mediaRef = useRef<HTMLDivElement>(null)
   const widths = imageWidths[emphasis]
+  const { src } = project.image
 
   const onPointerMove = (e: React.PointerEvent) => {
     const media = mediaRef.current
@@ -65,9 +63,10 @@ export function ProjectCard({ project, emphasis = project.emphasis ?? 'standard'
         className={`relative overflow-hidden rounded-2xl bg-bg-tertiary ${aspectStyles[emphasis]}`}
       >
         <img
-          src={unsplashUrl(project.image.unsplashId, widths[1])}
-          srcSet={widths.map((w) => `${unsplashUrl(project.image.unsplashId, w)} ${w}w`).join(', ')}
-          sizes={imageSizes[emphasis]}
+          src={imageUrl(src, widths[1])}
+          // Local images come in one size; Unsplash serves any width
+          srcSet={isLocalImage(src) ? undefined : widths.map((w) => `${imageUrl(src, w)} ${w}w`).join(', ')}
+          sizes={isLocalImage(src) ? undefined : imageSizes[emphasis]}
           alt={project.image.alt}
           loading="lazy"
           decoding="async"

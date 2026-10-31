@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { inAppClick, projectHref } from '../../hooks/useRouteState'
+import { imageUrl } from '../../data/media'
 import type { Project } from '../../types'
 
 interface ProjectListProps {
@@ -14,10 +15,6 @@ const followEase = 0.2
 /** Gap between the pointer and the preview's left edge, in px */
 const pointerGap = 28
 const viewportMargin = 16
-
-function unsplashUrl(id: string, width: number) {
-  return `https://images.unsplash.com/photo-${id}?w=${width}&q=80&auto=format&fit=crop`
-}
 
 function useMediaQuery(query: string) {
   const [matches, setMatches] = useState(() => window.matchMedia(query).matches)
@@ -52,10 +49,10 @@ function PreviewCarousel({ images, width, playing }: PreviewCarouselProps) {
 
   return (
     <>
-      {images.map((id, i) => (
+      {images.map((ref, i) => (
         <img
-          key={id}
-          src={unsplashUrl(id, width)}
+          key={ref}
+          src={imageUrl(ref, width)}
           alt=""
           decoding="async"
           className={`absolute inset-0 size-full object-cover ${i === index ? 'opacity-100' : 'opacity-0'}`}

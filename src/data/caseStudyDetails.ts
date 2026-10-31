@@ -1,7 +1,10 @@
 import type { CaseStudyDetail } from '../types'
-import { unsplash } from './media'
+import { image, unsplash } from './media'
 
-// Oaks and EV Smart Money are real case studies (images are placeholders); Lumen is a placeholder
+const oaks = '/images/case-studies/Oaks'
+const ev = '/images/case-studies/EVSmartMoney'
+
+// Oaks and EV Smart Money are real case studies; Lumen is a placeholder
 export const caseStudyDetails: CaseStudyDetail[] = [
   {
     id: 'oaks',
@@ -21,6 +24,15 @@ export const caseStudyDetails: CaseStudyDetail[] = [
       ],
       blocks: [
         {
+          type: 'mediaOnly',
+          media: [
+            image(
+              `${oaks}/Oaks_Hero%20Image.png`,
+              'A hand holding a phone with the Oaks savings dashboard, next to a Saving Insights card and a photo of a woman hugging a suitcase',
+            ),
+          ],
+        },
+        {
           type: 'textOnly',
           title: 'Part 1: widgets on merchant websites',
           description:
@@ -35,10 +47,11 @@ export const caseStudyDetails: CaseStudyDetail[] = [
         {
           type: 'mediaOnly',
           media: [
-            unsplash(
-              '1555041469-a586c61ea9bc',
-              'A green velvet sofa in an empty room with wooden floors',
+            image(
+              `${oaks}/Oaks_Flow.png`,
+              'Seven phone screens in three stages: the widget on a merchant site, account creation, identity verification with Onfido, and starting a savings plan',
               'The first version: account creation, identity check, then the first savings plan.',
+              true,
             ),
           ],
         },
@@ -53,7 +66,7 @@ export const caseStudyDetails: CaseStudyDetail[] = [
             '“Save now, buy later with rewards” was new to almost everyone. Our biggest challenge was helping people understand it quickly, and trust it enough to sign up. There was no playbook to copy, so we had to test, learn, and change the product again and again.',
           media: {
             kind: 'image',
-            src: '/images/case-studies/oaks/challenge-illustration.jpg',
+            src: `${oaks}/Oaks_Challenge_Illustration.png`,
             alt: 'Illustration of a person on a rock holding a tangled green thread that winds across stepping stones to a glowing doorway',
           },
           aspect: 'square',
@@ -72,7 +85,7 @@ export const caseStudyDetails: CaseStudyDetail[] = [
             'Alexa loves online shopping and is driven by deals and discounts. She wants to save for a designer chair while keeping her finances healthy, but she often gives up before reaching a goal.',
             '“Saving is not easy for me, especially for things like a designer chair or a handbag. I need a plan and some extra motivation.”',
           ],
-          media: { kind: 'image', src: '/images/case-studies/oaks/persona-alexa.jpg', alt: 'Alexa, a woman in a rust-coloured sweater, smiling on a sofa in a sunny living room' },
+          media: { kind: 'image', src: `${oaks}/Persona_Oaks_Alexa.png`, alt: 'Alexa, a woman in a rust-coloured sweater, smiling on a sofa in a sunny living room' },
           aspect: 'portrait',
         },
         {
@@ -82,7 +95,7 @@ export const caseStudyDetails: CaseStudyDetail[] = [
             'Ryan is good at long-term saving and comfortable with new tech. Short-term goals are harder: when he saves for a new gadget, the money often goes somewhere else first.',
             '“When it comes to saving for something like the latest gadget, I always end up spending on other things before I reach my goal.”',
           ],
-          media: { kind: 'image', src: '/images/case-studies/oaks/persona-ryan.jpg', alt: 'Ryan, a man in a dark T-shirt, smiling at his desk by a window with a laptop' },
+          media: { kind: 'image', src: `${oaks}/Persona_Oaks_Ryan.png`, alt: 'Ryan, a man in a dark T-shirt, smiling at his desk by a window with a laptop' },
           aspect: 'portrait',
           mediaFirst: true,
         },
@@ -91,7 +104,10 @@ export const caseStudyDetails: CaseStudyDetail[] = [
           title: 'What this meant for the design',
           description:
             'Both personas needed things to be simple. We focused on a clean dashboard that shows progress at a glance, clear savings insights such as rewards earned and the expected target date, and a step-by-step setup that removes friction.',
-          media: unsplash('1512428559087-560fa5ceab42', 'A person in a white shirt using a smartphone'),
+          media: image(
+            `${oaks}/Oaks_ProductImage1.png`,
+            'Two dashboard cards: the next payment with its reward, and Saving Insights showing total rewards, the expected target date and payments left',
+          ),
         },
       ],
     },
@@ -107,12 +123,14 @@ export const caseStudyDetails: CaseStudyDetail[] = [
             blocks: [
               {
                 type: 'textMedia',
+                layout: 'stacked',
                 description:
                   'Google Analytics showed two problems. Few shoppers clicked the teaser at all, and many of those who did left at the same step: setting up their savings plan.',
-                media: unsplash(
-                  '1460925895917-afdab827c52f',
-                  'A laptop on a glass table showing an analytics dashboard with area charts',
+                media: image(
+                  `${oaks}/Oaks_OldFlow.png`,
+                  'Six screens of the first sign-up flow, with the four savings plan steps circled in red and marked “Drop rate: high”',
                   'Most people dropped out while configuring their savings plan.',
+                  true,
                 ),
               },
             ],
@@ -133,18 +151,8 @@ export const caseStudyDetails: CaseStudyDetail[] = [
           },
           {
             title: 'Brainstorm and testing',
-            blocks: [
-              {
-                type: 'textMedia',
-                mediaFirst: true,
-                description:
-                  'I ran a brainstorming session with our Product Lead and CPO, and we came up with seven ideas to reduce drop-off. I then tested them in three rounds of online surveys, checking how easy each one was to understand and use. The answer was clear: people wanted a simpler sign-up, and they didn’t want to set up a savings plan while shopping.',
-                media: unsplash(
-                  '1587440871875-191322ee64b0',
-                  'A team sketching wireframes on paper surrounded by sticky notes and a laptop',
-                ),
-              },
-            ],
+            description:
+              'I ran a brainstorming session with our Product Lead and CPO, and we came up with seven ideas to reduce drop-off. I then tested them in three rounds of online surveys, checking how easy each one was to understand and use. The answer was clear: people wanted a simpler sign-up, and they didn’t want to set up a savings plan while shopping.',
           },
           {
             title: 'Final design',
@@ -155,10 +163,11 @@ export const caseStudyDetails: CaseStudyDetail[] = [
                 title: 'Sign up first, decide later',
                 description:
                   'The new “quick sign-up” lets people register in seconds and explore Oaks before deciding anything. Tapping the teaser opens a popup in the merchant’s own branding. A “How it works” button explains the product on a separate page, and people can sign up right away with just their email.',
-                media: unsplash(
-                  '1563013544-824ae1b704d3',
-                  'A person holding a credit card while shopping on a laptop',
-                  'The new flow: teaser, merchant-branded popup, and a “How it works” page.',
+                media: image(
+                  `${oaks}/Oaks_Diagnose.png`,
+                  'The new merchant-branded popup with five numbered notes, beside the “How it works” page',
+                  'The merchant-branded popup, and the “How it works” page it links to.',
+                  true,
                 ),
               },
               {
@@ -188,19 +197,29 @@ export const caseStudyDetails: CaseStudyDetail[] = [
         title: 'Taking the bank account out of the product',
         description:
           'The new onboarding brought in many more sign-ups. But soon we saw a new problem: very few people finished opening their savings account in the web app.',
+        blocks: [
+          {
+            type: 'mediaOnly',
+            media: [
+              image(
+                `${oaks}/Oaks_ProductImage2.png`,
+                'The e-money account screen: a savings card for a washing machine, with direct debit and standing order as ways to pay in',
+                'The savings account people had to open and fund.',
+              ),
+              image(
+                `${oaks}/Oaks_ProductImage4.jpg`,
+                'A “Make a single transfer” popup listing the name, IBAN, BIC and reference number to copy',
+                'Paying in meant setting up a bank transfer.',
+              ),
+            ],
+          },
+        ],
         subsections: [
           {
             title: 'In-store visits',
+            description:
+              'To find out what was holding people back, we visited the stores of our partner merchant POCO and talked to real customers. One reason came up again and again: people were tired of opening yet another bank account.',
             blocks: [
-              {
-                type: 'textMedia',
-                description:
-                  'To find out what was holding people back, we visited the stores of our partner merchant POCO and talked to real customers. One reason came up again and again: people were tired of opening yet another bank account.',
-                media: unsplash(
-                  '1556742049-0cfed4f6a45d',
-                  'A customer paying with a smartphone at a shop counter',
-                ),
-              },
               {
                 type: 'textOnly',
                 title: 'Insight',
@@ -222,18 +241,24 @@ export const caseStudyDetails: CaseStudyDetail[] = [
               {
                 type: 'mediaOnly',
                 media: [
-                  unsplash(
-                    '1556740738-b6a63e27c4df',
-                    'A woman at a shop counter paying at a card terminal',
+                  image(
+                    `${oaks}/Oaks_NewUserFlow.jpg`,
+                    'The new flow as a row of screens: marketing campaign, landing page, phone code, top-up, PayPal checkout, dashboard and pay-out voucher',
                     'From a marketing campaign to top-up, PayPal checkout, dashboard, and pay-out.',
+                    true,
                   ),
                 ],
               },
               {
-                type: 'textOnly',
+                type: 'textMedia',
                 title: 'Top up in a few taps',
                 description:
                   'People pick an amount, such as €25, €50, €75, or €100, see their POCO reward added to it, and pay with PayPal. No bank account, no paperwork.',
+                media: image(
+                  `${oaks}/Oaks_NewProductImage1.jpg`,
+                  'The POCO top-up screen: €100 selected, a €10 POCO reward and €10 starting bonus, 120 € balance and a PayPal button',
+                ),
+                aspect: 'square',
               },
               {
                 type: 'textOnly',
@@ -260,9 +285,9 @@ export const caseStudyDetails: CaseStudyDetail[] = [
         {
           type: 'mediaOnly',
           media: [
-            unsplash(
-              '1542744173-8e7e53415bb0',
-              'A team meeting around a conference table with laptops',
+            image(
+              `${oaks}/Oaks_TeamMeeting.jpg`,
+              'The team in a meeting room, talking through “Design Suggestion” slides on a screen',
               'Sharing design suggestions with the team.',
             ),
           ],
@@ -312,10 +337,15 @@ export const caseStudyDetails: CaseStudyDetail[] = [
         {
           type: 'mediaOnly',
           media: [
-            unsplash(
-              '1600596542815-ffad4c1539a9',
-              'A modern white villa with a swimming pool under a blue sky',
+            image(
+              `${ev}/EVSmartMoney_ProductImage4.jpg`,
+              'A fund page on desktop: an inflation-protected social real estate fund with its volume, forecast return, term and investment progress',
               'Real estate funds, opened up to investors online.',
+            ),
+            image(
+              `${ev}/EVSmartMoney_ProductImage5.jpg`,
+              'Three phones showing the home page, a fund page with a 30% progress ring, and the classification step',
+              'Mobile first, from the home page to the first investment.',
             ),
           ],
         },
@@ -342,7 +372,7 @@ export const caseStudyDetails: CaseStudyDetail[] = [
           ],
           media: {
             kind: 'image',
-            src: '/images/case-studies/ev-smart-money/persona-johannes.jpg',
+            src: `${ev}/Persona_EVSmartMoney.png`,
             alt: 'Johannes, a man with glasses in a navy blazer and light blue shirt, smiling in a bright office',
           },
           aspect: 'portrait',
@@ -364,31 +394,22 @@ export const caseStudyDetails: CaseStudyDetail[] = [
         subsections: [
           {
             title: 'Competitor research',
-            blocks: [
-              {
-                type: 'textMedia',
-                description:
-                  'I analysed investment products on the market to learn their best practices, useful UX patterns, and clever ways to handle long onboarding flows.',
-                media: unsplash(
-                  '1460925895917-afdab827c52f',
-                  'A laptop on a glass table showing an analytics dashboard with area charts',
-                  'Collecting onboarding patterns from investment and banking products.',
-                ),
-              },
-            ],
+            description:
+              'I analysed investment products on the market to learn their best practices, useful UX patterns, and clever ways to handle long onboarding flows.',
           },
           {
             title: 'User journey map',
             blocks: [
               {
                 type: 'textMedia',
-                mediaFirst: true,
+                layout: 'stacked',
                 description:
                   'With several service providers and a complex back end, getting everyone on the same page was crucial. I created a user journey map that showed every step, from the website to registration and investor profile, along with the systems behind each one. It gave the team a shared view of the current service and showed where to improve.',
-                media: unsplash(
-                  '1587440871875-191322ee64b0',
-                  'A team sketching wireframes on paper surrounded by sticky notes and a laptop',
+                media: image(
+                  `${ev}/EVSmartMoney_UserJourney.png`,
+                  'A journey map: the user flow across the top, with lanes below for PostIdent, manual processes, Salesforce, NetFonds, the back end and communication',
                   'The journey map, with every service provider in its own lane.',
+                  true,
                 ),
               },
             ],
@@ -457,11 +478,22 @@ export const caseStudyDetails: CaseStudyDetail[] = [
                 type: 'textMedia',
                 description:
                   'Designers, developers, and stakeholders worked together from the start. We began with wireframes on the whiteboard, then moved to prototypes and testing. Short cycles let us make decisions based on evidence, not opinions.',
-                media: unsplash(
-                  '1581291518857-4e27b48ff24e',
-                  'A hand sketching wireframes with a pen on paper',
-                  'From whiteboard sketches to tested prototypes.',
+                media: image(
+                  `${ev}/EVSmartMoney_Wireframes.jpg`,
+                  'A designer looking at whiteboard wireframes for the opportunities, portfolio and qualification screens',
+                  'Wireframes on the whiteboard.',
                 ),
+              },
+              {
+                type: 'mediaOnly',
+                media: [
+                  image(
+                    `${ev}/EVSmartMoney_Wireframe2.jpg`,
+                    'The same screen three times: a paper prototype with sticky notes, a grey wireframe, and the final product page',
+                    'From paper prototype to wireframe to final design.',
+                    true,
+                  ),
+                ],
               },
             ],
           },
@@ -471,15 +503,11 @@ export const caseStudyDetails: CaseStudyDetail[] = [
               {
                 type: 'mediaOnly',
                 media: [
-                  unsplash(
-                    '1586717791821-3f44a563fa4c',
-                    'Wireframes drawn on a tablet with a stylus',
-                    'Investor classification, one question per screen.',
-                  ),
-                  unsplash(
-                    '1512428559087-560fa5ceab42',
-                    'A person in a white shirt using a smartphone',
-                    'Progress and next steps after classification.',
+                  image(
+                    `${ev}/EVSmartMoney_ProductImage1.jpg`,
+                    'Four phone screens: choosing an investor classification, a question about assets, a 60% progress ring with next steps, and My investments',
+                    'Investor classification one question per screen, then progress and next steps.',
+                    true,
                   ),
                 ],
               },
@@ -507,6 +535,21 @@ export const caseStudyDetails: CaseStudyDetail[] = [
                 description:
                   'A chat button sits on every step, and each investor can contact a personal investor support advisor, because for big financial decisions, people still want to talk to someone.',
               },
+              {
+                type: 'mediaOnly',
+                media: [
+                  image(
+                    `${ev}/EVSmartMoney_ProductImage3.jpg`,
+                    'A waiting screen saying the classification is being checked, with a progress bar and about 22 minutes to go',
+                    'Manual checks show how long they will take.',
+                  ),
+                  image(
+                    `${ev}/EVSmartMoney_ProductImage2.jpg`,
+                    'A welcome message from Andre Burns of Investor Support, with his photo and signature',
+                    'A personal welcome from the investor support advisor.',
+                  ),
+                ],
+              },
             ],
           },
         ],
@@ -520,6 +563,19 @@ export const caseStudyDetails: CaseStudyDetail[] = [
         { value: '10.2022', label: 'First version launched' },
         { value: '8', label: 'In-depth client interviews' },
         { value: '4', label: 'Design principles behind every screen' },
+      ],
+      blocks: [
+        {
+          type: 'mediaOnly',
+          media: [
+            image(
+              `${ev}/EV_SmartMoney_Thumbnail.png`,
+              'The launched EV Smart Money website on desktop and phone, with an exclusive real estate investment',
+              'The website and web app at launch.',
+              true,
+            ),
+          ],
+        },
       ],
     },
     summary: {

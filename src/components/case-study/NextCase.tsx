@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Container } from '../layout/Container'
 import { inAppClick, projectHref } from '../../hooks/useRouteState'
 import { projects } from '../../data/projects'
+import { imageUrl } from '../../data/media'
 import type { NavigateFn } from '../../types'
 
 interface NextCaseProps {
@@ -11,10 +12,6 @@ interface NextCaseProps {
 
 /** How far the cursor pill closes in on the pointer each frame (0–1); lower trails more */
 const followEase = 0.22
-
-function coverUrl(id: string) {
-  return `https://images.unsplash.com/photo-${id}?w=1200&q=80&auto=format&fit=crop`
-}
 
 /**
  * Dark closing section on project pages: the following project (wrapping at the
@@ -99,7 +96,7 @@ export function NextCase({ currentId, onNavigate }: NextCaseProps) {
 
           <span className="block overflow-hidden rounded-2xl bg-white/5 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100">
             <img
-              src={coverUrl(next.image.unsplashId)}
+              src={imageUrl(next.image.src, 1200)}
               alt={next.image.alt}
               loading="lazy"
               decoding="async"
